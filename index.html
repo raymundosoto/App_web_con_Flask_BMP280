@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Visualización de datos del sensor BMP280</title>
+</head>
+<body>
+    <h1>Datos del sensor BMP280 en tiempo real</h1>
+
+    <div>
+        <h2>Gráfica en tiempo real</h2>
+        <img id="grafica" src="" alt="Gráfica" width="600" height="400">
+    </div>
+
+    <script>
+        function actualizarGrafica() {
+            fetch('/grafica')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('grafica').src = 'data:image/png;base64,' + data;
+                });
+        }
+
+        setInterval(actualizarGrafica, 5000); // Actualizar cada 5 segundos
+        actualizarGrafica(); // Actualizar al cargar la página
+    </script>
+</body>
+</html>
