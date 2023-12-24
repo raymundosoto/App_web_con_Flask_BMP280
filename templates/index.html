@@ -10,8 +10,8 @@
             margin-bottom: 20px;
         }
         .grafica {
-            width: 400px;
-            height: 200px;
+            width: 45%;
+            height: 300px;
         }
         .json {
             border: 1px solid #ccc;
@@ -41,16 +41,26 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Temperatura',
+                    label: 'Temperatura (°C)',
                     data: [],
                     borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1,
+                    borderWidth: 2,
                     fill: false
                 }]
             },
             options: {
                 scales: {
+                    xAxes: [{
+                        ticks: {
+                            maxRotation: 90,
+                            minRotation: 90
+                        }
+                    }],
                     yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Temperatura (°C)'
+                        },
                         ticks: {
                             beginAtZero: true
                         }
@@ -65,16 +75,26 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Presión',
+                    label: 'Presión (hPa)',
                     data: [],
                     borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1,
+                    borderWidth: 2,
                     fill: false
                 }]
             },
             options: {
                 scales: {
+                    xAxes: [{
+                        ticks: {
+                            maxRotation: 90,
+                            minRotation: 90
+                        }
+                    }],
                     yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Presión (hPa)'
+                        },
                         ticks: {
                             beginAtZero: true
                         }
