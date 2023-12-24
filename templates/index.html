@@ -62,7 +62,7 @@
                             labelString: 'Temperatura (°C)'
                         },
                         ticks: {
-                            min: -10,
+                            min: -20,
                             max: 50,
                             beginAtZero: false
                         }
@@ -111,7 +111,8 @@
             fetch('/grafica')
                 .then(response => response.json())
                 .then(data => {
-                    // Actualizar gráficas de temperatura y presión
+                    document.getElementById('jsonDatos').innerText = JSON.stringify(data, null, 2);
+
                     temperaturaChart.data.labels.push(data.timestamp);
                     temperaturaChart.data.datasets[0].data.push(data.temperatura);
                     temperaturaChart.update();
@@ -119,14 +120,11 @@
                     presionChart.data.labels.push(data.timestamp);
                     presionChart.data.datasets[0].data.push(data.presion);
                     presionChart.update();
-
-                    // Mostrar JSON en la página
-                    document.getElementById('jsonDatos').innerText = JSON.stringify(data, null, 2);
                 });
         }
 
-        setInterval(actualizarGrafica, 5000); // Actualizar cada 5 segundos
-        actualizarGrafica(); // Actualizar al cargar la página
+        setInterval(actualizarGrafica, 5000);
+        actualizarGrafica();
     </script>
 </body>
 </html>

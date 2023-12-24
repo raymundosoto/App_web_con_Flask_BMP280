@@ -2,33 +2,23 @@ from flask import Flask, request, jsonify, render_template
 
 app = Flask(__name__)
 
-temperaturas = []
-presiones = []
-
 @app.route('/datos', methods=['POST'])
 def recibir_datos():
     data = request.get_json()
     print("Datos recibidos:", data)
-    
-    temperatura = data.get('temperatura')
-    presion = data.get('presion')
-
-    # Guardar datos para la gráfica
-    if temperatura is not None and presion is not None:
-        temperaturas.append(temperatura)
-        presiones.append(presion)
-
     return jsonify({"mensaje": "Datos recibidos correctamente"})
 
 @app.route('/grafica')
 def obtener_datos_grafica():
-    # Aquí puedes proporcionar los datos almacenados en temperaturas y presiones
-    # En este ejemplo, se devuelven los últimos 10 valores de temperatura y presión
-    datos_grafica = {
-        "temperatura": temperaturas[-10:],
-        "presion": presiones[-10:]
+    # Datos de prueba con el formato del JSON del ESP32
+    data = {
+        'id_sensor': 'bmp280',
+        'timestamp': '2023-12-24 20:28:04',
+        'temperatura': 20.65999985,
+        'presion': 773.7371826,
+        'altitud': 2217.677002
     }
-    return jsonify(datos_grafica)
+    return jsonify(data)
 
 @app.route('/')
 def index():
