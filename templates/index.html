@@ -53,7 +53,8 @@
                     xAxes: [{
                         ticks: {
                             maxRotation: 90,
-                            minRotation: 90
+                            minRotation: 90,
+                            fontSize: 12 // Tamaño de los valores del eje X
                         }
                     }],
                     yAxes: [{
@@ -62,7 +63,9 @@
                             labelString: 'Temperatura (°C)'
                         },
                         ticks: {
-                            beginAtZero: true
+                            min: -10, // Valor mínimo del eje Y
+                            max: 50, // Valor máximo del eje Y
+                            fontSize: 12 // Tamaño de los valores del eje Y
                         }
                     }]
                 }
@@ -75,7 +78,7 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Presión (atm)',
+                    label: 'Presión (hPa)',
                     data: [],
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 2,
@@ -87,7 +90,8 @@
                     xAxes: [{
                         ticks: {
                             maxRotation: 90,
-                            minRotation: 90
+                            minRotation: 90,
+                            fontSize: 12 // Tamaño de los valores del eje X
                         }
                     }],
                     yAxes: [{
@@ -96,7 +100,9 @@
                             labelString: 'Presión (hPa)'
                         },
                         ticks: {
-                            beginAtZero: true
+                            min: 0, // Valor mínimo del eje Y
+                            max: 120000, // Valor máximo del eje Y
+                            fontSize: 12 // Tamaño de los valores del eje Y
                         }
                     }]
                 }
@@ -117,7 +123,13 @@
                     presionChart.update();
 
                     // Mostrar JSON en la página
-                    document.getElementById('jsonDatos').innerText = JSON.stringify(data, null, 2);
+                    document.getElementById('jsonDatos').innerText = JSON.stringify({
+                        id_sensor: data.id_sensor,
+                        timestamp: data.timestamp,
+                        temperatura: data.temperatura,
+                        presion: data.presion,
+                        altitud: data.altitud
+                    }, null, 2);
                 });
         }
 

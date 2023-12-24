@@ -29,7 +29,7 @@ void setup() {
 
 void loop() {
   float temperatura = bmp.readTemperature();
-  float presion = bmp.readPressure() / 1013.25; // atmosferas
+  float presion = bmp.readPressure(); // hectopascales
   float altitud = bmp.readAltitude(1013.25);
 
   // Crear el objeto JSON con los datos
