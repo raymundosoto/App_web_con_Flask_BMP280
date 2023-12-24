@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>Visualización de datos del sensor BMP280</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .graficas {
             display: flex;
@@ -34,6 +33,7 @@
         <pre id="jsonDatos"></pre>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         var temperaturaCtx = document.getElementById('temperaturaChart').getContext('2d');
         var temperaturaChart = new Chart(temperaturaCtx, {
@@ -53,8 +53,7 @@
                     xAxes: [{
                         ticks: {
                             maxRotation: 90,
-                            minRotation: 90,
-                            fontSize: 12 // Tamaño de los valores del eje X
+                            minRotation: 90
                         }
                     }],
                     yAxes: [{
@@ -63,9 +62,9 @@
                             labelString: 'Temperatura (°C)'
                         },
                         ticks: {
-                            min: -10, // Valor mínimo del eje Y
-                            max: 50, // Valor máximo del eje Y
-                            fontSize: 12 // Tamaño de los valores del eje Y
+                            min: -10,
+                            max: 50,
+                            beginAtZero: false
                         }
                     }]
                 }
@@ -90,8 +89,7 @@
                     xAxes: [{
                         ticks: {
                             maxRotation: 90,
-                            minRotation: 90,
-                            fontSize: 12 // Tamaño de los valores del eje X
+                            minRotation: 90
                         }
                     }],
                     yAxes: [{
@@ -100,9 +98,9 @@
                             labelString: 'Presión (hPa)'
                         },
                         ticks: {
-                            min: 0, // Valor mínimo del eje Y
-                            max: 120000, // Valor máximo del eje Y
-                            fontSize: 12 // Tamaño de los valores del eje Y
+                            min: 0,
+                            max: 120000,
+                            beginAtZero: false
                         }
                     }]
                 }
@@ -123,13 +121,7 @@
                     presionChart.update();
 
                     // Mostrar JSON en la página
-                    document.getElementById('jsonDatos').innerText = JSON.stringify({
-                        id_sensor: data.id_sensor,
-                        timestamp: data.timestamp,
-                        temperatura: data.temperatura,
-                        presion: data.presion,
-                        altitud: data.altitud
-                    }, null, 2);
+                    document.getElementById('jsonDatos').innerText = JSON.stringify(data, null, 2);
                 });
         }
 
