@@ -3,17 +3,40 @@
 <head>
     <title>Visualización de datos del sensor BMP280</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .graficas {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .grafica {
+            width: 400px;
+            height: 200px;
+        }
+        .json {
+            border: 1px solid #ccc;
+            padding: 10px;
+            max-width: 800px;
+            overflow: auto;
+        }
+    </style>
 </head>
 <body>
     <h1>Datos del sensor BMP280 en tiempo real</h1>
 
-    <div>
-        <canvas id="grafica" width="800" height="400"></canvas>
+    <div class="graficas">
+        <canvas id="temperaturaChart" class="grafica"></canvas>
+        <canvas id="presionChart" class="grafica"></canvas>
+    </div>
+
+    <div class="json">
+        <h2>Datos JSON recibidos</h2>
+        <pre id="jsonDatos"></pre>
     </div>
 
     <script>
-        var ctx = document.getElementById('grafica').getContext('2d');
-        var myChart = new Chart(ctx, {
+        var temperaturaCtx = document.getElementById('temperaturaChart').getContext('2d');
+        var temperaturaChart = new Chart(temperaturaCtx, {
             type: 'line',
             data: {
                 labels: [],
@@ -23,16 +46,28 @@
                     borderColor: 'rgba(255, 99, 132, 1)',
                     borderWidth: 1,
                     fill: false
-                }, {
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+        var presionCtx = document.getElementById('presionChart').getContext('2d');
+        var presionChart = new Chart(presionCtx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
                     label: 'Presión',
                     data: [],
                     borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1,
-                    fill: false
-                }, {
-                    label: 'Altitud',
-                    data: [],
-                    borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1,
                     fill: false
                 }]
@@ -52,11 +87,17 @@
             fetch('/grafica')
                 .then(response => response.json())
                 .then(data => {
-                    myChart.data.labels.push(data.timestamp);
-                    myChart.data.datasets[0].data.push(data.temperatura);
-                    myChart.data.datasets[1].data.push(data.presion);
-                    myChart.data.datasets[2].data.push(data.altitud);
-                    myChart.update();
+                    // Actualizar gráficas de temperatura y presión
+                    temperaturaChart.data.labels.push(data.timestamp);
+                    temperaturaChart.data.datasets[0].data.push(data.temperatura);
+                    temperaturaChart.update();
+
+                    presionChart.data.labels.push(data.timestamp);
+                    presionChart.data.datasets[0].data.push(data.presion);
+                    presionChart.update();
+
+                    // Mostrar JSON en la página
+                    document.getElementById('jsonDatos').innerText = JSON.stringify(data, null, 2);
                 });
         }
 
