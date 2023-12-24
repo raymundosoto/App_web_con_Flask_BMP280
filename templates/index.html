@@ -3,27 +3,20 @@
 <head>
     <title>Visualización de datos del sensor BMP280</title>
     <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
         .graficas {
             display: flex;
-            justify-content: center;
+            justify-content: space-around;
             margin-bottom: 20px;
         }
         .grafica {
-            width: 40%;
-            height: 250px;
-            margin: 10px;
+            width: 45%;
+            height: 300px;
         }
         .json {
             border: 1px solid #ccc;
             padding: 10px;
             max-width: 800px;
             overflow: auto;
-            text-align: left;
         }
     </style>
 </head>
@@ -52,32 +45,28 @@
                     data: [],
                     borderColor: 'rgba(255, 99, 132, 1)',
                     borderWidth: 2,
-                    fill: false,
-                    yAxisID: 'y-temperatura'
+                    fill: false
                 }]
             },
             options: {
                 scales: {
-                    x: {
+                    xAxes: [{
                         ticks: {
                             maxRotation: 90,
                             minRotation: 90
                         }
-                    },
-                    y: {
-                        position: 'right',
-                        title: {
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
                             display: true,
-                            text: 'Temperatura (°C)'
+                            labelString: 'Temperatura (°C)'
                         },
                         ticks: {
                             min: -20,
-                            max: 50
-                        },
-                        grid: {
-                            drawOnChartArea: false
+                            max: 50,
+                            beginAtZero: false
                         }
-                    }
+                    }]
                 }
             }
         });
@@ -97,22 +86,23 @@
             },
             options: {
                 scales: {
-                    x: {
+                    xAxes: [{
                         ticks: {
                             maxRotation: 90,
                             minRotation: 90
                         }
-                    },
-                    y: {
-                        title: {
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
                             display: true,
-                            text: 'Presión (hPa)'
+                            labelString: 'Presión (hPa)'
                         },
                         ticks: {
                             min: 0,
-                            max: 120000
+                            max: 120000,
+                            beginAtZero: false
                         }
-                    }
+                    }]
                 }
             }
         });
